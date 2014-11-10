@@ -1,12 +1,15 @@
-body{
-    padding:20px;
+
+#candyWrapper{
+    margin:20px;
 }
 
 td{
-    height:30px;
-    width:30px;
+    height:20px;
+    width:20px;
 }
 
 .element{
-    border:1px solid steelblue ;
+    background: lightblue;
+    border: 1px solid black;
+    opacity: 0.99;
 }
