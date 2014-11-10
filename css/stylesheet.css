@@ -15,3 +15,43 @@ td{
 .element:hover{
     background: lightgreen;
 }
+
+.other-nonmetal{
+    background-color: #8fc8f8;
+}
+
+.halogen{
+    background-color: #9487f8;
+}
+
+.noble-gas{
+    background-color: #85f780;
+}
+
+.alkali-metal{
+    background-color: #f4ee64;
+}
+
+.alkaline-earth{
+    background-color: #fcc171;
+}
+
+.metalloid{
+    background-color: #f58989;
+}
+
+.transition-metal{
+    background-color: #ea93d9;
+}
+
+.post-transition-metal{
+    background-color: #77f0b4;
+}
+
+.lanthanoid{
+    background-color: #c7c7c7;
+}
+
+.actinoid{
+    background-color: #989898;
+}
