@@ -1,9 +1,14 @@
 (function(){
+    
+    // Initializes element dimensions.
     dimensions();
+    
+    // Changes dimensions upon resizing the window.
     $(window).on('resize', function(){
         dimensions();
         return true;
     });
+    
     // Dynamically changes the dimensions of elements to fit in the window.
     function dimensions(){
         var newWidth = $('#candyWrapper').width();
@@ -12,4 +17,5 @@
         tableData.css('height', newWidth/18);
         return true;
     }
+    
 })();
