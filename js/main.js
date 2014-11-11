@@ -24,7 +24,6 @@
     
     // Appends a class to the elements based on their type.
     function colorTable(){
-        console.log("party");
         for (element in theElements){
             var elementID = '#a'+theElements[element].number;
             var elementClass = theElements[element].type;
