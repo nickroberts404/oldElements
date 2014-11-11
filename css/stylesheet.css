@@ -13,6 +13,7 @@ td{
     background: lightblue;
     border: 1px solid black;
     position: relative;
+    cursor: pointer;
 }
 
 .symbol{
@@ -42,6 +43,18 @@ td{
     bottom:0px;
     width:80px;
     left:10px;
+}
+
+#calculator{
+    width:100%;
+    height:100px;
+    background-color:lightblue;
+}
+
+#calc-button{
+    font-size:30px;
+    text-align: center;
+    background-color: pink;
 }
 
 .element:hover{
