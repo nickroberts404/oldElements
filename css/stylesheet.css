@@ -12,11 +12,14 @@
     -khtml-user-select: none;
     -moz-user-select: none;
     -o-user-select: none;
-    user-select: none; 
+    user-select: none;
+    transition: 0.3s ease all;
 }
 
 .element:hover{
     background: lightgreen;
+    transition: 0s ease all;
+    /*-webkit-filter: blur(0px);*/
 }
 
 .symbol{
@@ -46,6 +49,52 @@
     bottom:0px;
     width:80px;
     left:10px;
+}
+
+#info{
+    position: relative;
+    border: 1px solid black;
+    padding: 10px; 
+}
+
+#info-name{
+
+}
+
+#info-symbol{
+
+}
+
+#info-number{
+
+}
+
+#info-mass{
+
+}
+
+#info-melting{
+
+}
+
+#info-boiling{
+
+}
+
+#info-electronegativity{
+
+}
+
+#info-specific{
+
+}
+
+#info-type{
+
+}
+
+#info-density{
+
 }
 
 

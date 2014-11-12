@@ -46,6 +46,8 @@
 	    dynamicDimensions('number', numberRatios);
 	    dynamicDimensions('mass', massRatios);
     });
+
+    $('.element').hover(displayElementInfo, removeElementInfo);
     
     // Dynamically changes the dimensions of elements to fit in the window.
     function blockDimensions(){
