@@ -22,6 +22,13 @@
     	"width": .04
     }
 
+    var infoNameRatios = {
+    	"font-size": .0297 ,
+    	"bottom": .0074, 
+    	"left": .0074,
+    	"width": .222
+    }
+
     // Initializes element dimensions.
     blockDimensions();
     
@@ -35,20 +42,39 @@
     writeToTable('mass');
 
     //Initializes the dimensions of the element's descriptive properties.
-    dynamicDimensions('symbol', symbolRatios);
-    dynamicDimensions('number', numberRatios);
-    dynamicDimensions('mass', massRatios);
+    dynamicDimensions('.symbol', symbolRatios);
+    dynamicDimensions('.number', numberRatios);
+    dynamicDimensions('.mass', massRatios);
+    dynamicDimensions('#info-name', infoNameRatios);
 
     // Changes dimensions upon resizing the window.
     $(window).on('resize', function(){
     	blockDimensions();
-	    dynamicDimensions('symbol', symbolRatios);
-	    dynamicDimensions('number', numberRatios);
-	    dynamicDimensions('mass', massRatios);
+	    dynamicDimensions('.symbol', symbolRatios);
+	    dynamicDimensions('.number', numberRatios);
+	    dynamicDimensions('.mass', massRatios);
+	    dynamicDimensions('#info-name', infoNameRatios);
     });
 
-    $('.element').hover(displayElementInfo, removeElementInfo);
+    $('#candyWrapper').on('mouseenter', '.element', displayElementInfo)
+     				  .on('mouseleave', '.element', removeElementInfo);
     
+    function displayElementInfo(){
+    	var elementID = $(this).attr('id');
+    	var name = capitalize(theElements[elementID].name);
+    	$('#info-name').html(name);
+    	console.log("huh?");
+    	// dynamicDimensions('#info-name', infoNameRatios);
+    }
+
+    function removeElementInfo(){
+    	$('#info-name').html('');
+    }
+
+    function capitalize(string){
+    	return string.charAt(0).toUpperCase() + string.slice(1);
+    }
+
     // Dynamically changes the dimensions of elements to fit in the window.
     function blockDimensions(){
         var newWidth = $('#candyWrapper').width()/18;
@@ -59,14 +85,14 @@
 
     // Takes a class (as a string) and an object that relates certain properties 
     // to ratios relying on the window's current width.
-    function dynamicDimensions(aClass, properties){
+    function dynamicDimensions(selector, properties){
     	var windowWidth = window.innerWidth;
-    	var theClass = $('.'+aClass);
+    	var theSelector = $(selector);
     	for(property in properties){
     		var style = property;
     		var ratio = properties[property];
     		newDimension = windowWidth*ratio
-    		theClass.css(style, newDimension);
+    		theSelector.css(style, newDimension);
     	}
     }
     

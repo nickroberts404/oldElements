@@ -54,11 +54,15 @@
 #info{
     position: relative;
     border: 1px solid black;
-    padding: 10px; 
 }
 
 #info-name{
-
+    /*border:1px solid black;*/
+    position:absolute;
+    bottom: 10px;
+    left: 10px;
+    width:300px;
+    font-size: 40px;
 }
 
 #info-symbol{
