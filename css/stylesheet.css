@@ -66,38 +66,46 @@
 }
 
 #info-symbol{
-
+    position:absolute;
 }
 
 #info-number{
+    position:absolute;
 
 }
 
 #info-mass{
-
-}
-
-#info-melting{
-
-}
-
-#info-boiling{
-
-}
-
-#info-electronegativity{
-
-}
-
-#info-specific{
+    position:absolute;
 
 }
 
 #info-type{
+    position:absolute;
+
+}
+
+#info-electronegativity{
+    position:absolute;
 
 }
 
 #info-density{
+    position:absolute;
+
+}
+
+#info-boiling{
+    position:absolute;
+
+}
+
+#info-melting{
+    position:absolute;
+
+}
+
+#info-specific{
+    position:absolute;
 
 }
 
