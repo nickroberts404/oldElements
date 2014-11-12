@@ -10,14 +10,14 @@
     }
 
     var numberRatios = {
-    	"font-size": .012,
+    	"font-size": .010,
     	"top": .002, 
     	"left": .002
     }
 
     var massRatios = {
-    	"font-size": .012,
-    	"bottom": 0, 
+    	"font-size": .0115,
+    	"bottom": -0.0007, 
     	"left": .005,
     	"width": .04
     }
