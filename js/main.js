@@ -11,8 +11,8 @@
 
     var numberRatios = {
     	"font-size": .010,
-    	"top": .002, 
-    	"left": .002
+    	"top": .001, 
+    	"left": .001
     }
 
     var massRatios = {
