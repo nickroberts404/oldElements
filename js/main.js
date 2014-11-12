@@ -24,6 +24,22 @@
 	    	"bottom": .0074, 
 	    	"left": .0074,
 	    	"width": .222
+	    },
+	    "#info-symbol": {
+	    	"font-size": .0593 ,
+	    	"top": .004, 
+	    	"left": .00593,
+	    	"width": .1111
+	    },
+	    "#info-number": {
+	    	"font-size": .0148 ,
+	    	"top": .01483, 
+	    	"left": .1186
+	    },
+	    "#info-mass": {
+	    	"font-size": .0148 ,
+	    	"top": .02965, 
+	    	"left": .1186
 	    }
 	}
 
@@ -52,17 +68,51 @@
 		}
     });
 
+    // Executes the code to display or remove info from infobox
     $('#candyWrapper').on('mouseenter', '.element', displayElementInfo)
      				  .on('mouseleave', '.element', removeElementInfo);
     
     function displayElementInfo(){
     	var elementID = $(this).attr('id');
+    	displayBackground(elementID);
+    	displayName(elementID);
+    	displaySymbol(elementID);
+    	displayNumber(elementID);
+    	displayMass(elementID);
+    }
+
+    function displayBackground(elementID){
+    	typeClass = theElements[elementID].type;
+    	$('#infobox').addClass(typeClass);
+    }
+
+    function displayName(elementID){
     	var name = capitalize(theElements[elementID].name);
     	$('#info-name').html(name);
     }
 
+    function displaySymbol(elementID){
+    	var symbol = theElements[elementID].symbol;
+    	$('#info-symbol').html(symbol);
+    }
+
+    function displayNumber(elementID){
+    	var number = theElements[elementID].number;
+    	$('#info-number').html('Number: '+number);
+    }
+
+    function displayMass(elementID){
+    	var mass = theElements[elementID].mass;
+    	$('#info-mass').html('Mass: '+mass);
+    }
+
     function removeElementInfo(){
     	$('#info-name').html('');
+    	$('#info-symbol').html('');
+    	$('#info-number').html('');
+    	$('#info-mass').html('');
+    	var lastClass = $('#infobox').attr('class').split(' ').pop();
+    	$('#infobox').removeClass(lastClass);
     }
 
     function capitalize(string){
@@ -80,8 +130,8 @@
     // Takes a class (as a string) and an object that relates certain properties 
     // to ratios relying on the window's current width.
     function dynamicDimensions(selector, properties){
+    	console.log(selector+"-----"+properties);
     	var windowWidth = window.innerWidth;
-    	console.log(selector+"----"+properties);
     	var theSelector = $(selector);
     	for(property in properties){
     		var style = property;
