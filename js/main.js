@@ -10,30 +10,20 @@
     // Initializes colors of elements.
     colorTable();
 
-    // Sets the number in elements.
-    addNumbers();
+    writeToTable('number');
+    writeToTable('symbol');
+    writeToTable('mass');
 
-    // Sets the text in elements.
-    addSymbols();
-
-    // Sets the number in elements.
-    addMass();
-
-    //Initializes symbol dimensions.
-    symbolDimensions();
-
-    //Initializes symbol dimensions.
-    numberDimensions();
-
-    //Initializes symbol dimensions.
-    massDimensions();
+    dynamicFontSize('symbol', .023);
+    dynamicFontSize('number', .0078);
+    dynamicFontSize('mass', .0105);
     
     // Changes dimensions upon resizing the window.
     $(window).on('resize', function(){
     	blockDimensions();
-    	symbolDimensions();
-    	numberDimensions();
-    	massDimensions();
+    	dynamicFontSize('symbol', .023);
+	    dynamicFontSize('number', .0078);
+	    dynamicFontSize('mass', .0105);
     	return true;
     });
     
@@ -41,32 +31,17 @@
     function blockDimensions(){
         var newWidth = $('#candyWrapper').width()/18;
         var tableData = $('td');
-        tableData.css('width', newWidth);
-        tableData.css('height', newWidth);
+        tableData.css('width', newWidth)
+        		 .css('height', newWidth);
         console.log("Width: "+$('td').width()+" Height: "+$('td').height());
         return true;
     }
 
-    // Dynamically changes the dimensions of symbols to fit in the window.
-    function symbolDimensions(){
-    	// .023 is my window-width to font-size ratio.
-    	var symbolFontSize = window.innerWidth*.023;
-    	$('.symbol').css('font-size', symbolFontSize);
-        return true;
-    }
-
-    function numberDimensions(){
-    	// .023 is my window-width to font-size ratio.
-    	var numberFontSize = window.innerWidth*.0078;
-    	$('.number').css('font-size', numberFontSize);
-        return true;
-    }
-
-    function massDimensions(){
-    	// .023 is my window-width to font-size ratio.
-    	var massFontSize = window.innerWidth*.0105;
-    	$('.mass').css('font-size', massFontSize);
-        return true;
+    // Determines font-size for a class depending onits relationship to window width.
+    function dynamicFontSize(aClass, ratio){
+    	var fontSize = window.innerWidth*ratio;
+    	$('.'+aClass).css('font-size', fontSize);
+    	return true;
     }
     
     // Appends a class to the elements based on their type.
@@ -78,29 +53,13 @@
         }
     }
 
-    // Appends the element's symbol to individual elements.
-    function addSymbols(){
+    // Appends various values to the periodic table.
+    function writeToTable(dataType){
     	for (element in theElements){
     		var elementID = '#a'+theElements[element].number;
-            var elementSymbol = theElements[element].symbol;
-            $(elementID).append('<div class="symbol">'+elementSymbol+'</div>');
-    	}
-    }
-
-
-    function addNumbers(){
-    	for (element in theElements){
-    		var elementID = '#a'+theElements[element].number;
-            var elementNumber = theElements[element].number;
-            $(elementID).append('<div class="number">'+elementNumber+'</div>');
-    	}
-    }
-
-    function addMass(){
-    	for (element in theElements){
-    		var elementID = '#a'+theElements[element].number;
-            var elementMass = Math.round(theElements[element].mass * 100) / 100;
-            $(elementID).append('<div class="mass">'+elementMass+'</div>');
+    		if(dataType == 'mass') var dataValue = Math.round(theElements[element][dataType] * 100) / 100;
+            else var dataValue = theElements[element][dataType];
+            $(elementID).append('<div class="'+dataType+'">'+dataValue+'</div>');
     	}
     }
 
