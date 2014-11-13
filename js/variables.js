@@ -38,5 +38,10 @@
 	    	"font-size": .0148 ,
 	    	"top": .02965, 
 	    	"left": .1186
+	    },
+	    "#info-eneg": {
+	    	"font-size": .0148 ,
+	    	"top": .04445, 
+	    	"left": .1186
 	    }
 	}
