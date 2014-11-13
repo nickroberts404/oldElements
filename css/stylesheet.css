@@ -81,7 +81,7 @@
     font-family:monospace;
     font-size: 20px;
     left: 160px;
-    top:20px;
+    top:35px;
 }
 
 #info-mass{
@@ -89,12 +89,15 @@
     font-family:monospace;
     font-size: 20px;
     left: 160px;
-    top:40px;
+    top:55px;
 }
 
 #info-type{
     position:absolute;
-
+    font-family:monospace;
+    font-size: 20px;
+    left: 160px;
+    top:15px;
 }
 
 #info-eneg{
@@ -102,7 +105,7 @@
     font-family:monospace;
     font-size: 20px;
     left: 160px;
-    top:60px;
+    top:75px;
 }
 
 #info-density{

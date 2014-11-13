@@ -32,11 +32,12 @@
     function displayElementInfo(){
     	var elementID = $(this).attr('id');
     	displayBackground(elementID);
-    	displayName(elementID);
-    	displaySymbol(elementID);
-    	displayNumber(elementID);
-    	displayMass(elementID);
-    	displayENeg(elementID);
+    	displayGeneric(elementID, '#info-name', '', 'name', '');
+    	displayGeneric(elementID, '#info-symbol', '', 'symbol', '');
+    	displayGeneric(elementID, '#info-type', 'Type: ', 'type', '');
+    	displayGeneric(elementID, '#info-number', 'Number: ', 'number', '');
+    	displayGeneric(elementID, '#info-mass', 'Mass: ', 'mass', ' g/cm3');
+    	displayGeneric(elementID, '#info-eneg', 'eNeg: ', 'electronegativity', '');
     }
 
     function displayBackground(elementID){
@@ -44,40 +45,27 @@
     	$('#infobox').addClass(typeClass);
     }
 
-    function displayName(elementID){
-    	var name = capitalize(theElements[elementID].name);
-    	$('#info-name').html(name);
-    }
-
-    function displaySymbol(elementID){
-    	var symbol = theElements[elementID].symbol;
-    	$('#info-symbol').html(symbol);
-    }
-
-    function displayNumber(elementID){
-    	var number = theElements[elementID].number;
-    	$('#info-number').html('Number: '+number);
-    }
-
-    function displayMass(elementID){
-    	var mass = theElements[elementID].mass;
-    	$('#info-mass').html('Mass: '+mass+' g/cm3');
-    }
-
-    function displayENeg(elementID){
-    	var eneg = theElements[elementID].electronegativity;
-    	if(eneg =='') eneg = '<span class="nodata">no data</span>'
-    	$('#info-eneg').html('eNeg: '+eneg);
+    function displayGeneric(elementID, selector, title, dataType, prefix){
+    	var data = theElements[elementID][dataType];
+    	if(data=='' || data== null) data = '<span class="nodata">no data</span>';
+    	if(dataType == 'name') data = capitalize(data);
+    	if(dataType == 'mass') data = Math.round(data * 1000) / 1000;
+    	$(selector).html(title+data+prefix);
     }
 
     function removeElementInfo(){
-    	$('#info-name').html('');
-    	$('#info-symbol').html('');
-    	$('#info-number').html('');
-    	$('#info-mass').html('');
-    	$('#info-eneg').html('');
     	var lastClass = $('#infobox').attr('class').split(' ').pop();
-    	$('#infobox').removeClass(lastClass);
+    	$('#infobox').removeClass(lastClass)
+    				 .html('<div id="info-name"></div>'+
+		                    '<div id="info-symbol"></div>'+
+		                    '<div id="info-type"></div>'+
+		                    '<div id="info-number"></div>'+
+		                    '<div id="info-mass"></div>'+
+		                    '<div id="info-eneg"></div>'+
+		                    '<div id="info-density"></div>'+
+		                    '<div id="info-boiling"></div>'+
+		                    '<div id="info-melting"></div>'+
+		                    '<div id="info-specific"></div>');
     }
 
     function capitalize(string){
@@ -89,13 +77,11 @@
         var newWidth = $('#candyWrapper').width()/18;
         $('td').css('width', newWidth)
         	   .css('height', newWidth);
-        console.log("Width: "+$('td').width()+" Height: "+$('td').height());
     }
 
     // Takes a class (as a string) and an object that relates certain properties 
     // to ratios relying on the window's current width.
     function dynamicDimensions(selector, properties){
-    	console.log(selector+"-----"+properties);
     	var windowWidth = window.innerWidth;
     	var theSelector = $(selector);
     	for(property in properties){
