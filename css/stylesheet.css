@@ -8,19 +8,20 @@
     /*border: 1px solid black;*/
     position: relative;
     cursor: pointer;
+    box-sizing: border-box;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -o-user-select: none;
     user-select: none;
-    transition: 0.5s ease all;
-    /*-webkit-filter: blur(2px) grayscale(1);*/
+    transition: 0.2s ease all;
+    -webkit-filter: grayscale(1);
 }
 
 .element:hover{
-    background: lightgreen;
+    /*background: lightgreen;*/
     transition: 0s ease all;
-    /*-webkit-filter: blur(0px) grayscale(0);*/
+    -webkit-filter: grayscale(0);
 }
 
 .symbol{
@@ -122,6 +123,10 @@
 #info-specific{
     position:absolute;
 
+}
+
+.nodata{
+    color:red;
 }
 
 

@@ -66,6 +66,7 @@
 
     function displayENeg(elementID){
     	var eneg = theElements[elementID].electronegativity;
+    	if(eneg =='') eneg = '<span class="nodata">no data</span>'
     	$('#info-eneg').html('eNeg: '+eneg);
     }
 
