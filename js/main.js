@@ -79,6 +79,7 @@
     	displaySymbol(elementID);
     	displayNumber(elementID);
     	displayMass(elementID);
+    	displayENeg(elementID);
     }
 
     function displayBackground(elementID){
@@ -103,7 +104,12 @@
 
     function displayMass(elementID){
     	var mass = theElements[elementID].mass;
-    	$('#info-mass').html('Mass: '+mass);
+    	$('#info-mass').html('Mass: '+mass+' g/cm3');
+    }
+
+    function displayENeg(elementID){
+    	var eneg = theElements[elementID].electronegativity;
+    	$('#info-eneg').html('eNeg: '+eneg);
     }
 
     function removeElementInfo(){
@@ -111,6 +117,7 @@
     	$('#info-symbol').html('');
     	$('#info-number').html('');
     	$('#info-mass').html('');
+    	$('#info-eneg').html('');
     	var lastClass = $('#infobox').attr('class').split(' ').pop();
     	$('#infobox').removeClass(lastClass);
     }
