@@ -34,10 +34,11 @@
     	displayBackground(elementID);
     	displayGeneric(elementID, '#info-name', '', 'name', '');
     	displayGeneric(elementID, '#info-symbol', '', 'symbol', '');
-    	displayGeneric(elementID, '#info-type', 'Type: ', 'type', '');
+    	displayGeneric(elementID, '#info-type', '', 'type', '');
     	displayGeneric(elementID, '#info-number', 'Number: ', 'number', '');
-    	displayGeneric(elementID, '#info-mass', 'Mass: ', 'mass', ' g/cm3');
-    	displayGeneric(elementID, '#info-eneg', 'eNeg: ', 'electronegativity', '');
+    	displayGeneric(elementID, '#info-mass', 'Mass: ', 'mass', ' g/mol<sup>-1</sup>');
+    	displayGeneric(elementID, '#info-density', 'Density: ', 'density', ' g/cm<sup>3</sup>');
+    	displayGeneric(elementID, '#info-eneg', 'Electronegativity: ', 'electronegativity', '');
     }
 
     function displayBackground(elementID){
@@ -47,25 +48,27 @@
 
     function displayGeneric(elementID, selector, title, dataType, prefix){
     	var data = theElements[elementID][dataType];
-    	if(data=='' || data== null) data = '<span class="nodata">no data</span>';
+    	if(data=='' || data== null) {
+    		data = '<span class="nodata">no data</span>'; 
+    		prefix = ''; }
     	if(dataType == 'name') data = capitalize(data);
     	if(dataType == 'mass') data = Math.round(data * 1000) / 1000;
     	$(selector).html(title+data+prefix);
     }
-
+    // Tried resetting html of infobox but this deleted the responsive styles connected to the components.
     function removeElementInfo(){
     	var lastClass = $('#infobox').attr('class').split(' ').pop();
-    	$('#infobox').removeClass(lastClass)
-    				 .html('<div id="info-name"></div>'+
-		                    '<div id="info-symbol"></div>'+
-		                    '<div id="info-type"></div>'+
-		                    '<div id="info-number"></div>'+
-		                    '<div id="info-mass"></div>'+
-		                    '<div id="info-eneg"></div>'+
-		                    '<div id="info-density"></div>'+
-		                    '<div id="info-boiling"></div>'+
-		                    '<div id="info-melting"></div>'+
-		                    '<div id="info-specific"></div>');
+    	$('#infobox').removeClass(lastClass);
+    	$('#info-name').html('');
+    	$('#info-symbol').html('');
+    	$('#info-type').html('');
+    	$('#info-number').html('');
+    	$('#info-mass').html('');
+    	$('#info-eneg').html('');
+    	$('#info-density').html('');
+    	$('#info-boiling').html('');
+    	$('#info-melting').html('');
+    	$('#info-specific').html('');
     }
 
     function capitalize(string){

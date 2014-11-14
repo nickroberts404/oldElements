@@ -19,13 +19,13 @@
     	},
 	    "#info-name": {
 	    	"font-size": .0297 ,
-	    	"bottom": .0074, 
+	    	"bottom": .002, 
 	    	"left": .0074,
 	    	"width": .222
 	    },
 	    "#info-symbol": {
 	    	"font-size": .0593 ,
-	    	"top": .004, 
+	    	"top": .006, 
 	    	"left": .00593,
 	    	"width": .1111
 	    }
