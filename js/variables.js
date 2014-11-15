@@ -8,12 +8,12 @@
 	    },
 	    ".number": {
 	    	"font-size": .010,
-	    	"top": .001, 
-	    	"left": .001
+	    	"top": .002, 
+	    	"left": .002
     	},
     	".mass": {
 	    	"font-size": .0115,
-	    	"bottom": -0.0007, 
+	    	"bottom": 0.000, 
 	    	"left": .005,
 	    	"width": .04
     	},
@@ -28,20 +28,46 @@
 	    	"top": .006, 
 	    	"left": .00593,
 	    	"width": .1111
+	    },
+	    ".info": {
+	    	"font-size": .0132
+	    },
+	    ".info-col-1": {
+	    	"left": .126
+	    },
+	    ".info-col-2": {
+	    	"left": .325
+	    },
+	    "#info-type": { 
+	    	"right": .005255,
+	    	"bottom": .005255
+	    },
+
+	    "#info-number": {
+	    	"top": .01051
+	    },
+
+	    "#info-mass": {
+	    	"top": .0263
+	    },
+
+	    "#info-density": {
+	    	"top": .04204
+	    },
+
+	    "#info-eneg": {
+	    	"top": .0578
+	    },
+
+	    "#info-boiling": {
+	    	"top": .01051
+	    },
+
+	    "#info-melting": {
+	    	"top": .0263
+	    },
+
+	    "#info-specific": {
+	    	"top": .04204
 	    }
-	    // "#info-number": {
-	    // 	"font-size": .0148 ,
-	    // 	"top": .01483, 
-	    // 	"left": .1186
-	    // },
-	    // "#info-mass": {
-	    // 	"font-size": .0148 ,
-	    // 	"top": .02965, 
-	    // 	"left": .1186
-	    // },
-	    // "#info-eneg": {
-	    // 	"font-size": .0148 ,
-	    // 	"top": .04445, 
-	    // 	"left": .1186
-	    // }
 	}

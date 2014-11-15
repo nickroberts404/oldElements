@@ -39,11 +39,16 @@
     	displayGeneric(elementID, '#info-mass', 'Mass: ', 'mass', ' g/mol<sup>-1</sup>');
     	displayGeneric(elementID, '#info-density', 'Density: ', 'density', ' g/cm<sup>3</sup>');
     	displayGeneric(elementID, '#info-eneg', 'Electronegativity: ', 'electronegativity', '');
+    	displayGeneric(elementID, '#info-melting', 'Melting: ', 'melting', ' K');
+    	displayGeneric(elementID, '#info-boiling', 'Boiling: ', 'boiling', ' K');
+    	displayGeneric(elementID, '#info-specific', 'Specific Heat: ', 'specificheat', ' J/g&#8226;K');
     }
 
     function displayBackground(elementID){
-    	typeClass = theElements[elementID].type;
-    	$('#infobox').addClass(typeClass);
+    	var infobox = $('#infobox');
+    	var typeClass = theElements[elementID].type;
+    	infobox.addClass(typeClass);
+    	infobox.css('border-top', '1px solid black');
     }
 
     function displayGeneric(elementID, selector, title, dataType, prefix){
@@ -57,7 +62,9 @@
     }
     // Tried resetting html of infobox but this deleted the responsive styles connected to the components.
     function removeElementInfo(){
-    	var lastClass = $('#infobox').attr('class').split(' ').pop();
+    	var infobox = $('#infobox');
+    	var lastClass = infobox.attr('class').split(' ').pop();
+    	infobox.css('border-top', 'none');
     	$('#infobox').removeClass(lastClass);
     	$('#info-name').html('');
     	$('#info-symbol').html('');

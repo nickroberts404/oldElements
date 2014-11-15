@@ -5,7 +5,7 @@
 
 .element{
     background: lightblue;
-    /*border: 1px solid black;*/
+    border: 1px solid black;
     position: relative;
     cursor: pointer;
     box-sizing: border-box;
@@ -14,14 +14,14 @@
     -moz-user-select: none;
     -o-user-select: none;
     user-select: none;
-    transition: 0.2s ease all;
-    -webkit-filter: grayscale(1);
+    /*transition: 0.2s ease all;*/
+    /*-webkit-filter: blur(2px) grayscale(1);*/
 }
 
 .element:hover{
-    /*background: lightgreen;*/
-    transition: 0s ease all;
-    -webkit-filter: grayscale(0);
+    background: lightgreen;
+    /*transition: 0s ease all;*/
+    /*-webkit-filter: blur(0px) grayscale(0);*/
 }
 
 .symbol{
@@ -55,7 +55,7 @@
 
 #infobox{
     position: relative;
-    /*border-top: 1px solid black;*/
+    /*border: 1px solid black;*/
 }
 
 #info-name{
@@ -76,64 +76,61 @@
     width: 150px;
 }
 
-#info-number{
-    position:absolute;
-    font-family:monospace;
-    font-size: 20px;
-    left: 170px;
-    top: 20px;
-}
-
-#info-mass{
-    position:absolute;
-    font-family:monospace;
-    font-size: 20px;
-    left: 170px;
-    top:40px;
-}
-
 #info-type{
-    position:absolute;
-    font-family:monospace;
-    font-size: 20px;
     right: 10px;
     bottom: 10px;
 }
 
-#info-eneg{
+.info{
     position:absolute;
     font-family:monospace;
-    font-size: 20px;
-    left: 170px;
+    font-size: 25px;
+}
+
+.info-col-1{
+    left: 240px;
+}
+
+.info-col-2{
+    left: 630px;
+}
+
+#info-number{
+    top: 20px;
+}
+
+
+#info-mass{
+    top:50px;
+}
+
+#info-eneg{
     top:80px;
 }
 
 #info-density{
-    position:absolute;
-    font-family:monospace;
-    font-size: 20px;
-    left: 170px;
-    top:60px;
+    top:110px;
 }
 
 #info-boiling{
-    position:absolute;
-
+    top:20px;
 }
 
 #info-melting{
-    position:absolute;
-
+    top:50px;
 }
 
 #info-specific{
-    position:absolute;
-
+    top:80px;
 }
 
 .nodata{
     color:red;
 }
+
+/*.prefix{
+    font-size: 18px;
+}*/
 
 
 .other-nonmetal{
