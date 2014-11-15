@@ -8,15 +8,20 @@
     border: 1px solid black;
     position: relative;
     cursor: pointer;
+    box-sizing: border-box;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -o-user-select: none;
-    user-select: none; 
+    user-select: none;
+    /*transition: 0.2s ease all;*/
+    /*-webkit-filter: blur(2px) grayscale(1);*/
 }
 
 .element:hover{
     background: lightgreen;
+    /*transition: 0s ease all;*/
+    /*-webkit-filter: blur(0px) grayscale(0);*/
 }
 
 .symbol{
@@ -47,6 +52,85 @@
     width:80px;
     left:10px;
 }
+
+#infobox{
+    position: relative;
+    /*border: 1px solid black;*/
+}
+
+#info-name{
+    /*border: 1px solid black;*/
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    width: 300px;
+    font-size: 40px;
+}
+
+#info-symbol{
+    /*border: 1px solid black;*/
+    position: absolute;
+    font-size: 80px;
+    top: 10px;
+    left: 8px;
+    width: 150px;
+}
+
+#info-type{
+    right: 10px;
+    bottom: 10px;
+}
+
+.info{
+    position:absolute;
+    font-family:monospace;
+    font-size: 25px;
+}
+
+.info-col-1{
+    left: 240px;
+}
+
+.info-col-2{
+    left: 630px;
+}
+
+#info-number{
+    top: 20px;
+}
+
+
+#info-mass{
+    top:50px;
+}
+
+#info-eneg{
+    top:80px;
+}
+
+#info-density{
+    top:110px;
+}
+
+#info-boiling{
+    top:20px;
+}
+
+#info-melting{
+    top:50px;
+}
+
+#info-specific{
+    top:80px;
+}
+
+.nodata{
+    color:red;
+}
+
+/*.prefix{
+    font-size: 18px;
+}*/
 
 
 .other-nonmetal{
