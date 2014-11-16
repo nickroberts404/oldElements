@@ -3,6 +3,19 @@
     margin:20px;
 }
 
+.chooseType{
+    cursor: pointer;
+    /*border: 1px solid black;*/
+    opacity: 0.5;
+}
+.chooseType:hover{
+    opacity: 1.0;
+}
+
+.grayscale{
+    background-color: white !important;
+}
+
 .element{
     background: lightblue;
     border: 1px solid black;
@@ -14,14 +27,12 @@
     -moz-user-select: none;
     -o-user-select: none;
     user-select: none;
-    /*transition: 0.2s ease all;*/
-    /*-webkit-filter: blur(2px) grayscale(1);*/
+    transition: 0.2s ease all;
 }
 
 .element:hover{
     background: lightgreen;
-    /*transition: 0s ease all;*/
-    /*-webkit-filter: blur(0px) grayscale(0);*/
+    transition: 0s ease all;
 }
 
 .symbol{

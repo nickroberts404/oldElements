@@ -28,6 +28,19 @@
     // Executes the code to display or remove info from infobox
     $('#candyWrapper').on('mouseenter', '.element', displayElementInfo)
      				  .on('mouseleave', '.element', removeElementInfo);
+
+    $('#candyWrapper').on('mouseenter', '.chooseType', highlightType)
+                      .on('mouseleave', '.chooseType', unhighlightType);
+
+    function highlightType(){
+        var type = $(this).attr('class').split(' ').pop();
+        $('.element').not('.'+type).addClass('grayscale');
+    }
+
+    function unhighlightType(){
+        var type = $(this).attr('class').split(' ').pop();
+        $('.element').not('.'+type).removeClass('grayscale');
+    }
     
     function displayElementInfo(){
     	var elementID = $(this).attr('id');
@@ -77,6 +90,8 @@
     	$('#info-melting').html('');
     	$('#info-specific').html('');
     }
+
+
 
     function capitalize(string){
     	return string.charAt(0).toUpperCase() + string.slice(1);
