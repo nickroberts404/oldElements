@@ -8,26 +8,24 @@
 	    },
 	    ".number": {
 	    	"font-size": .010,
-	    	"top": .002, 
-	    	"left": .002
+	    	"top": .002074688, 
+	    	"left": .002074688
     	},
     	".mass": {
 	    	"font-size": .0115,
-	    	"bottom": 0.000, 
-	    	"left": .005,
-	    	"width": .04
+	    	"bottom": 0.000,
+	    	"left": 0.0052548,
+	    	"width": .042039
     	},
 	    "#info-name": {
-	    	"font-size": .0297 ,
-	    	"bottom": .002, 
-	    	"left": .0074,
-	    	"width": .222
+	    	"font-size": .0297,
+	    	"bottom": -0.003, 
+	    	"left": .0074
 	    },
 	    "#info-symbol": {
 	    	"font-size": .0593 ,
-	    	"top": .006, 
-	    	"left": .00593,
-	    	"width": .1111
+	    	"top": -0.002, 
+	    	"left": .00593
 	    },
 	    ".info": {
 	    	"font-size": .0132
