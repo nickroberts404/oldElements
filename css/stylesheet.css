@@ -4,7 +4,9 @@
 }
 
 .chooseType{
+    text-align: center;
     cursor: pointer;
+    font-size: 23px;
     /*border: 1px solid black;*/
     opacity: 0.5;
 }
@@ -66,11 +68,9 @@
 
 #infobox{
     position: relative;
-    /*border: 1px solid black;*/
 }
 
 #info-name{
-    /*border: 1px solid black;*/
     position: absolute;
     bottom: 10px;
     left: 10px;
@@ -79,12 +79,10 @@
 }
 
 #info-symbol{
-    /*border: 1px solid black;*/
     position: absolute;
     font-size: 80px;
     top: 10px;
     left: 8px;
-    width: 150px;
 }
 
 #info-type{
@@ -92,9 +90,17 @@
     bottom: 10px;
 }
 
+#info-typeBIG{
+    position:absolute;
+    font-family: monospace;
+    font-size:50px;
+    left: 10px;
+    bottom: 10px;
+}
+
 .info{
     position:absolute;
-    font-family:monospace;
+    font-family: monospace;
     font-size: 25px;
 }
 

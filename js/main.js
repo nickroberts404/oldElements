@@ -35,11 +35,15 @@
     function highlightType(){
         var type = $(this).attr('class').split(' ').pop();
         $('.element').not('.'+type).addClass('grayscale');
+        $('#infobox').addClass(type);
+        $('#info-typeBIG').html(type);
     }
 
     function unhighlightType(){
         var type = $(this).attr('class').split(' ').pop();
         $('.element').not('.'+type).removeClass('grayscale');
+        removeInfoboxBackground();
+        $('#info-typeBIG').html('');
     }
     
     function displayElementInfo(){
@@ -75,10 +79,8 @@
     }
     // Tried resetting html of infobox but this deleted the responsive styles connected to the components.
     function removeElementInfo(){
-    	var infobox = $('#infobox');
-    	var lastClass = infobox.attr('class').split(' ').pop();
-    	infobox.css('border-top', 'none');
-    	$('#infobox').removeClass(lastClass);
+        removeInfoboxBackground();
+    	$('#infobox').css('border-top', 'none');
     	$('#info-name').html('');
     	$('#info-symbol').html('');
     	$('#info-type').html('');
@@ -91,7 +93,11 @@
     	$('#info-specific').html('');
     }
 
-
+    function removeInfoboxBackground(){
+        var infobox = $('#infobox');
+        var lastClass = infobox.attr('class').split(' ').pop();
+        infobox.removeClass(lastClass);
+    }
 
     function capitalize(string){
     	return string.charAt(0).toUpperCase() + string.slice(1);

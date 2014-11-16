@@ -42,6 +42,11 @@
 	    	"right": .005255,
 	    	"bottom": .005255
 	    },
+	    "#info-typeBIG": { 
+	    	"font-size": .0263,
+	    	"left": .005255,
+	    	"bottom": .005255
+	    },
 
 	    "#info-number": {
 	    	"top": .01051
