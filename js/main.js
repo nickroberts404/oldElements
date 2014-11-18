@@ -123,11 +123,18 @@
  //// Functions for Calculator Mode.//////
 /////////////////////////////////////////
     
-    var calculated = 0
+    var calculated = 0;
+    var molecule = [];
+
 
     $('#candyWrapper').on('mousedown', '.element', function(event){
+        if(!calculatorMode) return false;
+        var elementID = $(this).attr('id');
         var button = event.which;
-        calculateMass(this, button);
+        calculateMass(elementID, button);
+        modifyMolecule(elementID, button);
+        $('#molecule-container').html(htmlifyMolecule(molecule));
+
     })
 
     // Toggles calculator mode.
@@ -136,16 +143,15 @@
     function toggleCalculator(){
         calculatorMode = !calculatorMode;
         traditionalMode = false;
-        $('#calculator-container').slideToggle({
-            duration: 200, 
-            complete: setCalculator
-        });
-
+        $('#calculator-container').slideToggle(200);
         if(calculatorMode){
-            
-        } else{
+            setTimeout(setCalculator, 200);
+        } 
+        else{
             traditionalMode = true;
             $('#calculator-screen').html('');
+            $('#molecule-container').html('');
+            molecule = [];
             calculated = 0;
         }
     }
@@ -154,15 +160,59 @@
         $('#calculator-screen').html(calculated.toFixed(4));
     }
 
-    function calculateMass(current, button){
-        if(!calculatorMode) return false;
-        var elementID = $(current).attr('id');
+    function calculateMass(elementID, button){
         var mass = parseFloat(theElements[elementID].mass);
+        var isPresent = elementIndex(theElements[elementID].symbol)!= -1
         if(button === 1) calculated +=mass;
-        if(button === 3) calculated -=mass;
+        if(button === 3 && isPresent) calculated -=mass;
+        if(calculated<0) calculated = 0;
         setCalculator();
     }
 
+
+
+  ////////////////////////////////////////////
+ //// Functions for Molecule Stringing.//////
+////////////////////////////////////////////
+
+
+
+    function modifyMolecule(elementID, button){
+        var element = theElements[elementID];
+        var index = elementIndex(element.symbol);
+        if(button == 1){
+            if (index != -1){
+                molecule[index][1]++;
+                return true;
+            } else{
+                molecule.push([element.symbol, 1]);
+            }
+        } else if(button == 3){
+            if (index != -1){
+                molecule[index][1]--;
+                if(molecule[index][1]<1){
+                    molecule.splice(index, 1);
+                }
+                return true;
+            } 
+        }
+    }
+
+    function elementIndex(symbol){
+        for(var i=0; i<molecule.length; i++){
+            if(molecule[i][0] == symbol) return i;
+        }
+        return -1;
+    }
+
+    function htmlifyMolecule(molecule){
+        var htmlMolecule = ''
+        for(var i=0; i<molecule.length; i++){
+            htmlMolecule += molecule[i][0]
+            if(molecule[i][1] > 1) htmlMolecule +='<sub>'+molecule[i][1]+'</sub>';
+        }
+        return htmlMolecule;
+    }
 
   ///////////////////////////////////////////////
  ///// Functions for Initializing the Table.////

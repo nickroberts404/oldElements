@@ -152,7 +152,7 @@
     text-align: center;
     background: white;
     font-size: 70px;
-    color: black;
+    color: #262626;
 }
 
 #calculator-container{
@@ -164,6 +164,7 @@
 }
 
 #calculator-screen{
+    color: #262626;
     position: absolute;
     /*border: 1px solid black;*/
     font-style: monospace;
