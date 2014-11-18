@@ -122,6 +122,11 @@
   //////////////////////////////////////////
  //// Functions for Calculator Mode.//////
 /////////////////////////////////////////
+    
+    var calculated = 0
+
+
+    $('#candyWrapper').on('click', '.element', addMass)
 
     // Toggles calculator mode.
     $('#calc-button').on('click', toggleCalculator);
@@ -129,13 +134,30 @@
     function toggleCalculator(){
         calculatorMode = !calculatorMode;
         traditionalMode = false;
-        $('#calculator-container').slideToggle();
+        $('#calculator-container').slideToggle({
+            duration: 200, 
+            complete: setCalculator
+        });
+
         if(calculatorMode){
-            console.log("CALCULATE!");
+            
         } else{
             traditionalMode = true;
-            console.log("DONT CALCULATE!");
+            $('#calculator-screen').html('');
+            calculated = 0;
         }
+    }
+
+    function setCalculator(){
+        $('#calculator-screen').html(calculated.toFixed(4));
+    }
+
+    function addMass(){
+        if(!calculatorMode) return false;
+        var elementID = $(this).attr('id');
+        var mass = parseFloat(theElements[elementID].mass);
+        calculated +=mass;
+        setCalculator();
     }
 
 
