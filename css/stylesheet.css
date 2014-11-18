@@ -1,6 +1,7 @@
 
 #candyWrapper{
     margin:20px;
+    position:relative;
 }
 
 .chooseType{
@@ -145,10 +146,18 @@
     color:red;
 }
 
-/*.prefix{
-    font-size: 18px;
-}*/
-
+#calc-button{
+    text-align: center;
+    border: 1px solid black;
+    background: white;
+    font-size: 70px;
+    color: black;
+    cursor:pointer;
+    transition: 0.2s all;
+}
+#calc-button:hover{
+    color: steelblue;
+}
 
 .other-nonmetal{
     background-color: #8fc8f8;

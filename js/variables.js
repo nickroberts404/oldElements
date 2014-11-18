@@ -72,5 +72,8 @@
 
 	    "#info-specific": {
 	    	"top": .04204
+	    },
+	    "#calc-button":{
+	    	"font-size": .036784
 	    }
 	}
