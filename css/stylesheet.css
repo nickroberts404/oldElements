@@ -18,18 +18,20 @@
 .grayscale{
     background-color: white !important;
 }
-
-.element{
-    background: lightblue;
+.element, .button{
     border: 1px solid black;
-    position: relative;
     cursor: pointer;
-    box-sizing: border-box;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -o-user-select: none;
     user-select: none;
+}
+
+.element{
+    background: lightblue;
+    position: relative;
+    box-sizing: border-box;
     transition: 0.2s ease all;
 }
 
@@ -148,15 +150,17 @@
 
 #calc-button{
     text-align: center;
-    border: 1px solid black;
     background: white;
     font-size: 70px;
     color: black;
-    cursor:pointer;
-    transition: 0.2s all;
 }
-#calc-button:hover{
-    color: steelblue;
+
+#calculator-container{
+    position: relative;
+    border-top:1px solid black;
+    height: inherit;
+    background: lightblue;
+    overflow: hidden;
 }
 
 .other-nonmetal{

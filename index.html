@@ -15,12 +15,6 @@
 <body>
    
     <div id="candyWrapper">
-        <div id="calculator-container">
-            <div id="calculator">
-                <div id="calculator-screen"></div>
-                <div id="calculator-keys"></div>
-            </div>
-        </div>
         <table>
             <tr id="row1">
                 <td class="element" id="a1"></td>
@@ -36,7 +30,7 @@
                 <td class="chooseType lanthanoid"></td>
                 <td class="chooseType actinoid"></td>
                 <td colspan=4 class="space"></td>
-                <td id="calc-button"><i class="fa fa-calculator"></i></td>
+                <td class="button" id="calc-button"><i class="fa fa-calculator"></i></td>
                 <td class="element" id="a2"></td>
             </tr>
             <tr>
@@ -54,6 +48,12 @@
                     <div id="info-boiling" class="info info-col-2"></div>
                     <div id="info-melting" class="info info-col-2"></div>
                     <div id="info-specific" class="info info-col-2"></div>
+                    <div id="calculator-container" hidden>
+                        <div id="calculator">
+                            <div id="calculator-screen">0</div>
+                            <div id="calculator-keys"></div>
+                        </div>
+                    </div>
                 </td>
                 <td class="element" id="a5"></td>
                 <td class="element" id="a6"></td>

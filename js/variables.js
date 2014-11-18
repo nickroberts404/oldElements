@@ -75,5 +75,8 @@
 	    },
 	    "#calc-button":{
 	    	"font-size": .036784
+	    }, 
+	    "#calculator-container": {
+	    	"height": .1083
 	    }
 	}
