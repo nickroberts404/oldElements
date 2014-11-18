@@ -125,8 +125,10 @@
     
     var calculated = 0
 
-
-    $('#candyWrapper').on('click', '.element', addMass)
+    $('#candyWrapper').on('mousedown', '.element', function(event){
+        var button = event.which;
+        calculateMass(this, button);
+    })
 
     // Toggles calculator mode.
     $('#calc-button').on('click', toggleCalculator);
@@ -152,11 +154,12 @@
         $('#calculator-screen').html(calculated.toFixed(4));
     }
 
-    function addMass(){
+    function calculateMass(current, button){
         if(!calculatorMode) return false;
-        var elementID = $(this).attr('id');
+        var elementID = $(current).attr('id');
         var mass = parseFloat(theElements[elementID].mass);
-        calculated +=mass;
+        if(button === 1) calculated +=mass;
+        if(button === 3) calculated -=mass;
         setCalculator();
     }
 
@@ -225,9 +228,14 @@
  //// Random Functions./////
 ///////////////////////////
 
-
+    // Capitalizes first letter of a string. Used to display element name.
     function capitalize(string){
         return string.charAt(0).toUpperCase() + string.slice(1);
     }
+
+    // Disable context menu when right-clicking an element.
+    $('.element').bind('contextmenu', function() {
+        return false;
+    });
     
 })();
