@@ -131,8 +131,9 @@
         if(!calculatorMode) return false;
         var elementID = $(this).attr('id');
         var button = event.which;
-        calculateMass(elementID, button);
         modifyMolecule(elementID, button);
+        calculated = moleculeMass(molecule);
+        setCalculator();
         $('#molecule-container').html(htmlifyMolecule(molecule));
 
     })
@@ -171,15 +172,6 @@
         $('#calculator-clear').html("clear");
     }
 
-    function calculateMass(elementID, button){
-        var mass = parseFloat(theElements[elementID].mass);
-        var isPresent = elementIndex(theElements[elementID].symbol)!= -1
-        if(button === 1) calculated +=mass;
-        if(button === 3 && isPresent) calculated -=mass;
-        if(calculated<0) calculated = 0;
-        setCalculator();
-    }
-
 
 
   ////////////////////////////////////////////
@@ -207,6 +199,15 @@
                 return true;
             } 
         }
+    }
+
+    function moleculeMass(molecule){
+        mass = 0;
+        for(var i=0; i<molecule.length; i++){
+            var mySymbol = molecule[i][0];
+            mass += parseFloat(elementsAssoc("symbol", mySymbol, "mass"))*molecule[i][1];
+        }
+        return mass;
     }
 
     function elementIndex(symbol){
@@ -298,5 +299,13 @@
     $('.element').bind('contextmenu', function() {
         return false;
     });
+
+    // Searches for asociating values, for example, what is the mass of an element with symbol "Ni"?
+    function elementsAssoc(search, searchValue, target){
+        for(element in theElements){
+            if(theElements[element][search] == searchValue) return theElements[element][target];
+        }
+        return "There's an error with elementsAssoc!";
+    }
     
 })();
