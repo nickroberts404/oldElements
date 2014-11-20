@@ -67,7 +67,7 @@
         displayGeneric(elementID, '#info-symbol', '', 'symbol', '');
         displayGeneric(elementID, '#info-type', '', 'type', '');
         displayGeneric(elementID, '#info-number', 'Number: ', 'number', '');
-        displayGeneric(elementID, '#info-mass', 'Mass: ', 'mass', ' g/mol<sup>-1</sup>');
+        displayGeneric(elementID, '#info-mass', 'Mass: ', 'mass', ' g/mol');
         displayGeneric(elementID, '#info-density', 'Density: ', 'density', ' g/cm<sup>3</sup>');
         displayGeneric(elementID, '#info-eneg', 'Electronegativity: ', 'electronegativity', '');
         displayGeneric(elementID, '#info-melting', 'Melting: ', 'melting', ' K');
@@ -140,6 +140,11 @@
     // Toggles calculator mode.
     $('#calc-button').on('click', toggleCalculator);
 
+    $('#calculator-clear').on('click', function(){
+        calculatorReset();
+        setCalculator();
+    });
+
     function toggleCalculator(){
         calculatorMode = !calculatorMode;
         traditionalMode = false;
@@ -149,15 +154,21 @@
         } 
         else{
             traditionalMode = true;
-            $('#calculator-screen').html('');
-            $('#molecule-container').html('');
-            molecule = [];
-            calculated = 0;
+            calculatorReset();
         }
     }
 
+    function calculatorReset(){
+        $('#calculator-screen').html('');
+        $('#molecule-container').html('');
+        $('#calculator-clear').html('');
+        molecule = [];
+        calculated = 0;
+    }
+
     function setCalculator(){
-        $('#calculator-screen').html(calculated.toFixed(4));
+        $('#calculator-screen').html(calculated.toFixed(4)+' g/mol');
+        $('#calculator-clear').html("clear");
     }
 
     function calculateMass(elementID, button){
