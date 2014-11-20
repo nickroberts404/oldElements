@@ -1,6 +1,7 @@
 
 #candyWrapper{
     margin:20px;
+    position:relative;
 }
 
 .chooseType{
@@ -17,18 +18,20 @@
 .grayscale{
     background-color: white !important;
 }
-
-.element{
-    background: lightblue;
+.element, .button{
     border: 1px solid black;
-    position: relative;
     cursor: pointer;
-    box-sizing: border-box;
     -webkit-user-select: none;
     -khtml-user-select: none;
     -moz-user-select: none;
     -o-user-select: none;
     user-select: none;
+}
+
+.element{
+    background: lightblue;
+    position: relative;
+    box-sizing: border-box;
     transition: 0.2s ease all;
 }
 
@@ -145,10 +148,60 @@
     color:red;
 }
 
-/*.prefix{
-    font-size: 18px;
-}*/
+#calc-button{
+    text-align: center;
+    background: white;
+    font-size: 70px;
+    color: #262626;
+}
 
+#calculator-clear{
+    position: absolute;
+    bottom: 10px;
+    right:10px;
+    line-height: 1;
+    font-size:30px; 
+    color: #262626;
+    cursor: pointer;
+}
+
+#calculator-clear:hover{
+    color:#f58989;
+}
+
+
+#calculator-container{
+    position: relative;
+    border-top:1px solid black;
+    font-family: monospace;
+    height: inherit;
+    background: lightblue;
+    overflow: hidden;
+}
+
+#calculator-screen{
+    color: #262626;
+    position: absolute;
+    /*border: 1px solid black;  */
+    width:500px;  
+    bottom:10px;
+    left:10px;
+    font-size:50px;
+    line-height:1;
+}
+
+#molecule-container{
+    position: absolute;
+    color: #262626;
+    font-size:30px;
+    top:20px;
+    left:10px;
+    line-height:1;
+}
+
+#calculator-keys{
+    
+}
 
 .other-nonmetal{
     background-color: #8fc8f8;
