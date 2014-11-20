@@ -21,6 +21,7 @@
 	    var molecule = [];
 	    // Sets index as -1, that way the first push will increment the index to 0.
 		var index = -1;
+		var firstNum = true;
 		// Turns brackets into parentheses. I don't actually know what brackets are for in chemical formulas!
 		theString = theString.replace("[", "(");
 		theString = theString.replace("]", ")");
@@ -53,10 +54,13 @@
 					// handled in the recursive call.
 					i+=parenSpan-1;
 				}
-				// current must be a letter. If its uppercase, we'll create a new element in our molecule.
+				// current must be a letter. 
+				//If its uppercase, we'll create a new element in our molecule.
 				else if(current == current.toUpperCase()){
 					// The quantity variable is automatically set to one.
 					molecule.push([current, 1]);
+					// Allows us to add double digit numbers. 
+					firstNum=true;
 					index++;
 				} 
 				// Neat, its a lowercase letter, it must belong to the last element created.
@@ -65,9 +69,11 @@
 					molecule[index][0]+=current;
 				}
 			// Oh geez, we have a number. Replace the current index's quantity variable with the number.
-			// This currently will not work with more than one number.
+			// This works with more than one number. 
 			} else if(isNumber){
-				molecule[index][1]=current;
+				if(firstNum) molecule[index][1]=current;
+				else molecule[index][1]+=current;
+				firstNum=false;
 			}
 	    }
 	    return molecule;
