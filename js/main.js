@@ -220,7 +220,8 @@
     function htmlifyMolecule(molecule){
         var htmlMolecule = ''
         for(var i=0; i<molecule.length; i++){
-            htmlMolecule += molecule[i][0]
+            if(typeof molecule[i][0] =="object") htmlMolecule+="("+htmlifyMolecule(molecule[i][0])+")";
+            else htmlMolecule += molecule[i][0]
             if(molecule[i][1] > 1) htmlMolecule +='<sub>'+molecule[i][1]+'</sub>';
         }
         return htmlMolecule;
