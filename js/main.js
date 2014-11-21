@@ -146,6 +146,30 @@
         setCalculator();
     });
 
+    $('#calculator-type').on('keyup', typeMass);
+
+    function typeMass(){
+        var theString = $('#calculator-type').val();
+        if(!hasUnpairedParentheses(theString)){
+            console.log("YUP");
+            molecule = readMolecule(theString);
+            calculated = moleculeMass(molecule);
+            setCalculator();
+            $('#molecule-container').html(htmlifyMolecule(molecule));
+        }
+    }
+
+    function hasUnpairedParentheses(theString){
+        var stack = 0;
+        for(var i=0; i<theString.length; i++){
+            var current = theString.charAt(i);
+            if(current == "(") stack++;
+            else if(current == ")") stack--;
+        }
+        if(stack==0) return false;
+        else return true;
+    }
+
     function toggleCalculator(){
         calculatorMode = !calculatorMode;
         traditionalMode = false;
@@ -163,6 +187,7 @@
         $('#calculator-screen').html('');
         $('#molecule-container').html('');
         $('#calculator-clear').html('');
+        $('#calculator-type').val('');
         molecule = [];
         calculated = 0;
     }
@@ -205,7 +230,8 @@
         mass = 0;
         for(var i=0; i<molecule.length; i++){
             var mySymbol = molecule[i][0];
-            mass += parseFloat(elementsAssoc("symbol", mySymbol, "mass"))*molecule[i][1];
+            if(typeof mySymbol == "object") mass+=moleculeMass(mySymbol)*molecule[i][1];
+            else mass += parseFloat(elementsAssoc("symbol", mySymbol, "mass"))*molecule[i][1];
         }
         return mass;
     }
@@ -217,15 +243,112 @@
         return -1;
     }
 
+    // Places the molecule into sweet html format. Basically just adds parentheses and subscript for quantity. Returns some html.
     function htmlifyMolecule(molecule){
+        // We'll build the htmlified molecule through concatenation... is that how you spell it?
         var htmlMolecule = ''
         for(var i=0; i<molecule.length; i++){
+            //If the symbol variable of this array is another array, we have a parentheses block.
+            // Run htmlifyMolecule agin with just this array and place parentheses around it.
             if(typeof molecule[i][0] =="object") htmlMolecule+="("+htmlifyMolecule(molecule[i][0])+")";
+            //Everything is good, display the symbol variable!
             else htmlMolecule += molecule[i][0]
+            // If the quantity variable is 1, don't display anything. Otherwise add subscript.
             if(molecule[i][1] > 1) htmlMolecule +='<sub>'+molecule[i][1]+'</sub>';
         }
         return htmlMolecule;
     }
+
+    // Takes a type of chemical formula from user and formats it in a way that my program can read it. Returns a molecule object.
+    function readMolecule(theString){
+        // console.log("readMolecule("+theString+")");
+        // Initializes molecule array.
+        var molecule = [];
+        // Sets index as -1, that way the first push will increment the index to 0.
+        var index = -1;
+        var firstNum = true;
+        // Turns brackets into parentheses. I don't actually know what brackets are for in chemical formulas!
+        theString = theString.replace("[", "(");
+        theString = theString.replace("]", ")");
+        // Iterates through the current string, pushing a new array for every new element 
+        //and altering quantity when it gets to a number.
+        for(var i=0; i<theString.length; i++){
+            // Sets current to the current charcter, beginning with the first.
+            var current = theString.charAt(i);
+            // isNumber will indicate whether current is a number...shouldn't have even written this.
+            var isNumber = !isNaN(current);
+            // If it is NOT a number, we either have a parentheses or letter.
+            if(!isNumber){
+                // current is a parentheses!
+                if(current == "("){
+                    // Sends findParenSpan the rest of the string(opening parentheses not included) and finds out
+                    // how long this parentheses block is. That way I know where to jump my i to, and what
+                    // to send to readMolecule.
+                    var parenSpan =findParenSpan( theString.slice(i+1), 1);    
+                    // Breaks code if parentheses arent matched. I could fix this.  
+                    if(parenSpan== 0) return true;
+                    // console.log("parenSpan: "+parenSpan);
+                    // Just places what I'll send to readMolecule in a little package.
+                    // Slices the string into just the parentheses block.
+                    var parenBlock = theString.slice(i+1, i+parenSpan-1);
+                    // console.log("parenBlock: "+parenBlock);
+                    // Creates a recursive call to readMolecule and pushes results into current molecule.
+                    // This is to allow multiple layers of parentheses.
+                    molecule.push([readMolecule(parenBlock), 1]);
+                    // Pushes index forward.
+                    index++;
+                    // Pushes i forward, that way the for loop does not iterate over the charcters 
+                    // handled in the recursive call.
+                    i+=parenSpan-1;
+                }
+                // current must be a letter. 
+                //If its uppercase, we'll create a new element in our molecule.
+                else if(current == current.toUpperCase()){
+                    // The quantity variable is automatically set to one.
+                    molecule.push([current, 1]);
+                    // Allows us to add double digit numbers. 
+                    firstNum=true;
+                    index++;
+                } 
+                // Neat, its a lowercase letter, it must belong to the last element created.
+                // This is why we are keeping track of index.
+                else{
+                    molecule[index][0]+=current;
+                }
+            // Oh geez, we have a number. Replace the current index's quantity variable with the number.
+            // This works with more than one number. 
+            } else if(isNumber){
+                if(firstNum) molecule[index][1]=current;
+                else molecule[index][1]+=current;
+                firstNum=false;
+            }
+        }
+        return molecule;
+    }
+
+    // Finds the length that a parentheses block spans.
+    function findParenSpan(theString, starting){
+        console.log("findParenSpan("+theString+")");
+        // Automatic length of one. This is what we will return after string iteration.
+        var length = starting;
+        // order will be treated like a stack. We start with one because there has definately been one open parentheses.
+        // For opening parentheses we will add 1, for closing we will subtract one.
+        // Once we get an order of 0, length wil be returned.
+        // We can't just search for the next closing parentheses because there may be multiple layers.
+        var order = 1;
+        for(var i=0; i< theString.length; i++){
+            var current = theString.charAt(i);
+            length++; 
+            if(current == "(") order++;
+            else if(current ==")") order--;
+            if(order==0) return length;
+        }
+        // Wait, we have an opening paren but no closing? THE F!?
+        // console.log("Unmatched parentheses!");
+        return 0;
+    }
+
+
 
   ///////////////////////////////////////////////
  ///// Functions for Initializing the Table.////
