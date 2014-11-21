@@ -151,23 +151,15 @@
     function typeMass(){
         var theString = $('#calculator-type').val();
         if(!hasUnpairedParentheses(theString)){
-            console.log("YUP");
             molecule = readMolecule(theString);
-            calculated = moleculeMass(molecule);
-            setCalculator();
+            var theMass = moleculeMass(molecule);
+            if(typeof theMass == "string") $('#calculator-screen').html(theMass+" is not an element");
+            else{
+                calculated = theMass;
+                setCalculator();
+            }
             $('#molecule-container').html(htmlifyMolecule(molecule));
         }
-    }
-
-    function hasUnpairedParentheses(theString){
-        var stack = 0;
-        for(var i=0; i<theString.length; i++){
-            var current = theString.charAt(i);
-            if(current == "(") stack++;
-            else if(current == ")") stack--;
-        }
-        if(stack==0) return false;
-        else return true;
     }
 
     function toggleCalculator(){
@@ -231,7 +223,11 @@
         for(var i=0; i<molecule.length; i++){
             var mySymbol = molecule[i][0];
             if(typeof mySymbol == "object") mass+=moleculeMass(mySymbol)*molecule[i][1];
-            else mass += parseFloat(elementsAssoc("symbol", mySymbol, "mass"))*molecule[i][1];
+            else {
+                var assoc = elementsAssoc("symbol", mySymbol, "mass");
+                if(assoc == false) return mySymbol;
+                else mass += parseFloat(assoc)*molecule[i][1];
+            }
         }
         return mass;
     }
@@ -267,6 +263,7 @@
         // Sets index as -1, that way the first push will increment the index to 0.
         var index = -1;
         var firstNum = true;
+        theString= theString.charAt(0).toUpperCase()+theString.slice(1); 
         // Turns brackets into parentheses. I don't actually know what brackets are for in chemical formulas!
         theString = theString.replace("[", "(");
         theString = theString.replace("]", ")");
@@ -429,7 +426,18 @@
         for(element in theElements){
             if(theElements[element][search] == searchValue) return theElements[element][target];
         }
-        return "There's an error with elementsAssoc!";
+        return false;
+    }
+
+    function hasUnpairedParentheses(theString){
+        var stack = 0;
+        for(var i=0; i<theString.length; i++){
+            var current = theString.charAt(i);
+            if(current == "(") stack++;
+            else if(current == ")") stack--;
+        }
+        if(stack==0) return false;
+        else return true;
     }
     
 })();
