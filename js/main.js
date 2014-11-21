@@ -29,25 +29,43 @@
  ///// Functions for Basic Functionality./////
 /////////////////////////////////////////////
 
-    // Highlight certain types of elements depending on what color you hover over.
-    // Does not change infobox color or add text when in calculator mode. 
-    $('#candyWrapper').on('mouseenter', '.chooseType', highlightType)
-                      .on('mouseleave', '.chooseType', unhighlightType);
+    // // Highlight certain types of elements depending on what color you hover over.
+    // // Does not change infobox color or add text when in calculator mode. 
+    // $('#candyWrapper').on('mouseenter', '.chooseType', highlightType)
+    //                   .on('mouseleave', '.chooseType', unhighlightType);
 
-    function highlightType(){
-        var type = $(this).attr('class').split(' ').pop();
-        $('.element').not('.'+type).addClass('grayscale');
-        if(!traditionalMode) return false;
-        $('#infobox').addClass(type);
-        $('#info-typeBIG').html(type);
-    }
+    // function highlightType(){
+    //     var type = $(this).attr('class').split(' ').pop();
+    //     $('.element').not('.'+type).addClass('grayscale');
+    //     if(!traditionalMode) return false;
+    //     $('#infobox').addClass(type);
+    //     $('#info-typeBIG').html(type);
+    // }
 
-    function unhighlightType(){
-        var type = $(this).attr('class').split(' ').pop();
-        $('.element').not('.'+type).removeClass('grayscale');
-        if(!traditionalMode) return false;
-        removeInfoboxBackground();
-        $('#info-typeBIG').html('');
+    // function unhighlightType(){
+    //     var type = $(this).attr('class').split(' ').pop();
+    //     $('.element').not('.'+type).removeClass('grayscale');
+    //     if(!traditionalMode) return false;
+    //     removeInfoboxBackground();
+    //     $('#info-typeBIG').html('');
+    // }
+
+    function highlightSelected(elementList){
+        console.log(elementList);
+        var idList = []
+        theLength = elementList.length
+        if(theLength == 0) {
+            console.log("Somethig shouldve happened...");
+            $('.element').removeClass('grayscale');
+        }
+        else{
+            for(var i=0; i<theLength; i++){
+                idList.push('#'+elementList[i]);
+            }
+            console.log(idList);
+            $('.element').not(idList.join(',')).addClass('grayscale');
+            $(idList.join(',')).removeClass('grayscale element-hover');
+        }
     }
 
   //////////////////////////////////////////
@@ -125,7 +143,7 @@
     
     var calculated = 0;
     var molecule = [];
-
+    var elementList = [];
 
     $('#candyWrapper').on('mousedown', '.element', function(event){
         if(!calculatorMode) return false;
@@ -134,11 +152,26 @@
         modifyMolecule(elementID, button);
         var prettyMolecule = htmlifyMolecule(molecule);
         var uglyMolecule = uglifyMolecule(prettyMolecule);
+        elementList = whatElements(molecule);
+        highlightSelected(elementList);
         $('#calculator-type').val(uglyMolecule);
         calculated = moleculeMass(molecule);
         setCalculator();
         $('#molecule-container').html(prettyMolecule);
     })
+
+    $('.element').hover(
+        function(){
+            var element = $(this);
+            if(!calculatorMode || elementList.length == 0) element.addClass('element-hover');
+            else if(element.hasClass('grayscale')) element.removeClass('grayscale');
+        },
+        function(){
+            var element = $(this);
+            var id = element.attr('id');
+            if(!calculatorMode || elementList.length == 0 ) element.removeClass('element-hover');
+            else if(elementList.indexOf(id)== -1) element.addClass('grayscale');
+        });
 
     // Toggles calculator mode.
     $('#calc-button').on('click', toggleCalculator);
@@ -162,6 +195,8 @@
             }
             else{
                 calculated = theMass;
+                elementList = whatElements(molecule);
+                highlightSelected(elementList);
                 setCalculator();
             }
             $('#molecule-container').html(htmlifyMolecule(molecule));
@@ -189,6 +224,8 @@
         $('#calculator-clear').html('');
         $('#calculator-type').val('');
         molecule = [];
+        elementList = whatElements(molecule);
+        highlightSelected(elementList);
         calculated = 0;
     }
 
@@ -205,7 +242,18 @@
  //// Functions for Molecule Stringing.//////
 ////////////////////////////////////////////
 
-
+    function whatElements(molecule){
+        var list = [];
+        for(var i=0; i<molecule.length; i++){
+            var symbol = molecule[i][0];
+            if(typeof symbol == "object") list = list.concat(whatElements(symbol));
+            else {
+                var elementID = 'a'+elementsAssoc('symbol', symbol, 'number'); 
+                list.push(elementID);
+            }
+        }
+        return list;
+    }
 
     function modifyMolecule(elementID, button){
         var element = theElements[elementID];

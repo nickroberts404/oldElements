@@ -15,6 +15,10 @@
     opacity: 1.0;
 }
 
+.extragrayscale{
+    background-color: white !important;
+}
+
 .grayscale{
     background-color: white !important;
 }
@@ -32,12 +36,10 @@
     background: lightblue;
     position: relative;
     box-sizing: border-box;
-    transition: 0.2s ease all;
 }
 
-.element:hover{
-    background: lightgreen;
-    transition: 0s ease all;
+.element-hover{
+    background: lightgreen !important;
 }
 
 .symbol{
