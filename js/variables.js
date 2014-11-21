@@ -78,5 +78,28 @@
 	    }, 
 	    "#calculator-container": {
 	    	"height": .1083
+	    }, 
+	    ".smallerText": {
+	    	"font-size": .015625
+	    }, 
+	    "#calculator-clear": {
+	    	"bottom": .0052083,
+	    	"right": .0052083,
+	    	"font-size": .015625
+	    }, 
+	    "#calculator-type": {
+	    	"font-size": .015625,
+	    	"padding-left": .0104166
+	    }, 
+	    "#calculator-screen": {
+	    	"width": .260416666,
+	    	"bottom": .0052083,
+	    	"left": .0052083,
+	    	"font-size": .026041666
+	    }, 
+	    "#molecule-container": {
+	    	"font-size": .02083333,
+	    	"top": .0052083,
+	    	"left": .0052083
 	    }
 	}

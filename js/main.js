@@ -155,7 +155,11 @@
         if(!hasUnpairedParentheses(theString)){
             molecule = readMolecule(theString);
             var theMass = moleculeMass(molecule);
-            if(typeof theMass == "string") $('#calculator-screen').html('<span class="nodata smallerText">'+theMass+" is not an element</span>");
+            if(typeof theMass == "string") {
+                $('#calculated-mass').html('');
+                $('#prefix').html('');
+                $('#error').html(theMass+' is not an element');
+            }
             else{
                 calculated = theMass;
                 setCalculator();
@@ -178,7 +182,9 @@
     }
 
     function calculatorReset(){
-        $('#calculator-screen').html('');
+        $('#calculated-mass').html('');
+        $('#error').html('');
+        $('#prefix').html('');
         $('#molecule-container').html('');
         $('#calculator-clear').html('');
         $('#calculator-type').val('');
@@ -187,7 +193,9 @@
     }
 
     function setCalculator(){
-        $('#calculator-screen').html(calculated.toFixed(4)+' <span class="smallerText">g/mol</span>');
+        $('#calculated-mass').html(calculated.toFixed(4));
+        $('#error').html('');
+        $('#prefix').html("g/mol");
         $('#calculator-clear').html("clear");
     }
 
@@ -301,6 +309,7 @@
                     // This is to allow multiple layers of parentheses.
                     molecule.push([readMolecule(parenBlock), 1]);
                     // Pushes index forward.
+                    firstNum=true;
                     index++;
                     // Pushes i forward, that way the for loop does not iterate over the charcters 
                     // handled in the recursive call.
