@@ -148,6 +148,10 @@
     color:red;
 }
 
+.smallerText{
+    font-size:30px;
+}
+
 #calc-button{
     text-align: center;
     background: white;

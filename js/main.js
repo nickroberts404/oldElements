@@ -132,10 +132,12 @@
         var elementID = $(this).attr('id');
         var button = event.which;
         modifyMolecule(elementID, button);
+        var prettyMolecule = htmlifyMolecule(molecule);
+        var uglyMolecule = uglifyMolecule(prettyMolecule);
+        $('#calculator-type').val(uglyMolecule);
         calculated = moleculeMass(molecule);
         setCalculator();
-        $('#molecule-container').html(htmlifyMolecule(molecule));
-
+        $('#molecule-container').html(prettyMolecule);
     })
 
     // Toggles calculator mode.
@@ -153,7 +155,7 @@
         if(!hasUnpairedParentheses(theString)){
             molecule = readMolecule(theString);
             var theMass = moleculeMass(molecule);
-            if(typeof theMass == "string") $('#calculator-screen').html(theMass+" is not an element");
+            if(typeof theMass == "string") $('#calculator-screen').html('<span class="nodata smallerText">'+theMass+" is not an element</span>");
             else{
                 calculated = theMass;
                 setCalculator();
@@ -185,7 +187,7 @@
     }
 
     function setCalculator(){
-        $('#calculator-screen').html(calculated.toFixed(4)+' g/mol');
+        $('#calculator-screen').html(calculated.toFixed(4)+' <span class="smallerText">g/mol</span>');
         $('#calculator-clear').html("clear");
     }
 
@@ -253,6 +255,12 @@
             if(molecule[i][1] > 1) htmlMolecule +='<sub>'+molecule[i][1]+'</sub>';
         }
         return htmlMolecule;
+    }
+
+    function uglifyMolecule(text){
+        text = text.replace(/<sub>/g, '');
+        text = text.replace(/<\/sub>/g, '');
+        return text;
     }
 
     // Takes a type of chemical formula from user and formats it in a way that my program can read it. Returns a molecule object.
