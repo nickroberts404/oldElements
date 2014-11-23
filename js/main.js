@@ -4,6 +4,8 @@
  ///// Initialize App./////
 //////////////////////////
 
+    // console.log(theCompounds[300].chemicalArray);
+
     //Table begins in traditional mode.
     var calculatorMode = false;
     var traditionalMode = true;
@@ -29,29 +31,7 @@
  ///// Functions for Basic Functionality./////
 /////////////////////////////////////////////
 
-    // // Highlight certain types of elements depending on what color you hover over.
-    // // Does not change infobox color or add text when in calculator mode. 
-    // $('#candyWrapper').on('mouseenter', '.chooseType', highlightType)
-    //                   .on('mouseleave', '.chooseType', unhighlightType);
-
-    // function highlightType(){
-    //     var type = $(this).attr('class').split(' ').pop();
-    //     $('.element').not('.'+type).addClass('grayscale');
-    //     if(!traditionalMode) return false;
-    //     $('#infobox').addClass(type);
-    //     $('#info-typeBIG').html(type);
-    // }
-
-    // function unhighlightType(){
-    //     var type = $(this).attr('class').split(' ').pop();
-    //     $('.element').not('.'+type).removeClass('grayscale');
-    //     if(!traditionalMode) return false;
-    //     removeInfoboxBackground();
-    //     $('#info-typeBIG').html('');
-    // }
-
     function highlightSelected(elementList){
-        console.log(elementList);
         var idList = []
         theLength = elementList.length
         if(theLength == 0) {
@@ -62,7 +42,6 @@
             for(var i=0; i<theLength; i++){
                 idList.push('#'+elementList[i]);
             }
-            console.log(idList);
             $('.element').not(idList.join(',')).addClass('grayscale');
             $(idList.join(',')).removeClass('grayscale element-hover');
         }
@@ -71,6 +50,7 @@
   //////////////////////////////////////////
  ///// Functions for Traditional Mode./////
 //////////////////////////////////////////
+
 
 
     // Executes the code to display or remove info from infobox
@@ -155,10 +135,43 @@
         elementList = whatElements(molecule);
         highlightSelected(elementList);
         $('#calculator-type').val(uglyMolecule);
+        theElementTotal = elementTotal(elementTotal(molecule, 1), 1);
+        aMatch = findMatch(theElementTotal);
+        if(aMatch!=false) $('#molecule-name').html(aMatch);
+        else $('#molecule-name').html('');
         calculated = moleculeMass(molecule);
         setCalculator();
         $('#molecule-container').html(prettyMolecule);
     })
+
+    function findMatch(total){
+        for(compound in theCompounds){
+            var compoundTotal = elementTotal(theCompounds[compound].chemicalArray, 1)
+            compoundTotal = elementTotal(compoundTotal, 1);
+            // // console.log(compoundTotal);
+            // var compoundTotal = [["H", 2], ["O", 1]];
+            // total = [["H", 2], ["O", 1]];
+            if(arraySame(total, compoundTotal)) return theCompounds[compound].name;
+            // if(arraySame(total, compoundTotal)) return true;
+        }
+        return false;
+    }
+
+    function arraySame(a, b){
+        if (a === b) return true;
+        if (a == null || b == null) return false;
+        if (a.length != b.length) return false;
+        a = a.sort();
+        b = b.sort();
+        for (var i = 0; i < a.length; i++) {
+            for(var j = 0; j<a[i].length; j++){
+                // console.log(a[i][j]+b[i][j]);
+                if (a[i][j] != b[i][j]) return false;
+            }
+            
+        }
+        return true;
+    }
 
     $('.element').hover(
         function(){
@@ -197,6 +210,10 @@
                 calculated = theMass;
                 elementList = whatElements(molecule);
                 highlightSelected(elementList);
+                theElementTotal = elementTotal(elementTotal(molecule, 1), 1);
+                aMatch = findMatch(theElementTotal);
+                if(aMatch!=false) $('#molecule-name').html(aMatch);
+                else $('#molecule-name').html('');
                 setCalculator();
             }
             $('#molecule-container').html(htmlifyMolecule(molecule));
@@ -217,6 +234,7 @@
     }
 
     function calculatorReset(){
+        $('#molecule-name').html('');
         $('#calculated-mass').html('');
         $('#error').html('');
         $('#prefix').html('');
@@ -253,6 +271,31 @@
             }
         }
         return list;
+    }
+
+    function elementTotal(molecule, ratio){
+        var total = [];
+        var index = -1;
+        for(var i=0; i<molecule.length; i++){
+            var element = molecule[i];
+            if(typeof element[0] == "object") total = total.concat(elementTotal(element[0], element[1]));
+            else{
+                for(var h=0; h< total.length; h+=1){
+                    if(total[h][0]==element[0]){
+                        index = h;
+                    }
+                }
+                if(index!=-1){
+                    var newQuantity = parseInt(total[index][1])+(parseInt(element[1])*ratio);
+                    total[index][1] = newQuantity;
+                }
+                else{
+                    total.push([element[0], element[1]*ratio]);
+                }
+            }
+            index = -1;
+        }
+        return total;
     }
 
     function modifyMolecule(elementID, button){
@@ -390,7 +433,6 @@
 
     // Finds the length that a parentheses block spans.
     function findParenSpan(theString, starting){
-        console.log("findParenSpan("+theString+")");
         // Automatic length of one. This is what we will return after string iteration.
         var length = starting;
         // order will be treated like a stack. We start with one because there has definately been one open parentheses.

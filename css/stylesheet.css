@@ -4,24 +4,10 @@
     position:relative;
 }
 
-.chooseType{
-    text-align: center;
-    cursor: pointer;
-    font-size: 23px;
-    /*border: 1px solid black;*/
-    opacity: 0.5;
-}
-.chooseType:hover{
-    opacity: 1.0;
-}
-
-.extragrayscale{
-    background-color: white !important;
-}
-
 .grayscale{
-    background-color: white !important;
+    -webkit-filter: grayscale(1); 
 }
+
 .element, .button{
     border: 1px solid black;
     cursor: pointer;
@@ -35,7 +21,6 @@
 .element{
     background: lightblue;
     position: relative;
-    box-sizing: border-box;
 }
 
 .element-hover{
@@ -215,9 +200,14 @@
     left:10px;
     line-height:1;
 }
-
-#calculator-keys{
-    
+#molecule-name{
+    position: relative;
+    color: #262626;
+    font-size:40px;
+    font-weight:bold;
+    top:50px;
+    text-align: center;
+    line-height:1;
 }
 
 .other-nonmetal{
