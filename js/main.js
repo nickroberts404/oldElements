@@ -5,7 +5,7 @@
 //////////////////////////
 
     // console.log(theCompounds[300].chemicalArray);
-
+    console.log(window.innerWidth);
     //Table begins in traditional mode.
     var calculatorMode = false;
     var traditionalMode = true;

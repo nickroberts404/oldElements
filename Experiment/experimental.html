@@ -2,123 +2,35 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>Experimental</title>
+	<title>Experiment</title>
+	<style>
+		.block{
+			height:100px;
+			width: 100px;
+			border-radius:15px;
+			display:inline-block;
+		}
+	</style>
 </head>
 <body>
-	<p id="molecule"></p>
-	<input id="user" type="text" onkeyup="doit()" placeholder="Chemical Formula">
-<script>
-	function doit(){
-		var text = document.getElementById('user').value;
-		document.getElementById('molecule').innerHTML = htmlifyMolecule(readMolecule(text));
-	}
-	console.log(readMolecule("H2O(Pt3O5)"))
-	console.log(htmlifyMolecule(readMolecule("H2O(Pt3(Te1Rb9)O5)")));
-	document.getElementById('molecule').innerHTML = htmlifyMolecule(readMolecule("H3O"));
-	function readMolecule(theString){
-		// console.log("readMolecule("+theString+")");
-		// Initializes molecule array.
-	    var molecule = [];
-	    // Sets index as -1, that way the first push will increment the index to 0.
-		var index = -1;
-		var firstNum = true;
-		// Turns brackets into parentheses. I don't actually know what brackets are for in chemical formulas!
-		theString = theString.replace("[", "(");
-		theString = theString.replace("]", ")");
-		// Iterates through the current string, pushing a new array for every new element 
-		//and altering quantity when it gets to a number.
-		for(var i=0; i<theString.length; i++){
-			// Sets current to the current charcter, beginning with the first.
-			var current = theString.charAt(i);
-			// isNumber will indicate whether current is a number...shouldn't have even written this.
-			var isNumber = !isNaN(current);
-			// If it is NOT a number, we either have a parentheses or letter.
-			if(!isNumber){
-				// current is a parentheses!
-				if(current == "("){
-					// Sends findParenSpan the rest of the string(opening parentheses not included) and finds out
-					// how long this parentheses block is. That way I know where to jump my i to, and what
-					// to send to readMolecule.
-					var parenSpan =findParenSpan( theString.slice(i+1));	
-					// Breaks code if parentheses arent matched. I could fix this.	
-	    			if(parenSpan== 0) return true;
-					// console.log("parenSpan: "+parenSpan);
-					// Just places what I'll send to readMolecule in a little package.
-					// Slices the string into just the parentheses block.
-					var parenBlock = theString.slice(i+1, i+parenSpan-1);
-					// console.log("parenBlock: "+parenBlock);
-					// Creates a recursive call to readMolecule and pushes results into current molecule.
-					// This is to allow multiple layers of parentheses.
-					molecule.push([readMolecule(parenBlock), 1]);
-					// Pushes index forward.
-					index++;
-					// Pushes i forward, that way the for loop does not iterate over the charcters 
-					// handled in the recursive call.
-					i+=parenSpan-1;
-				}
-				// current must be a letter. 
-				//If its uppercase, we'll create a new element in our molecule.
-				else if(current == current.toUpperCase()){
-					// The quantity variable is automatically set to one.
-					molecule.push([current, 1]);
-					// Allows us to add double digit numbers. 
-					firstNum=true;
-					index++;
-				} 
-				// Neat, its a lowercase letter, it must belong to the last element created.
-				// This is why we are keeping track of index.
-				else{
-					molecule[index][0]+=current;
-				}
-			// Oh geez, we have a number. Replace the current index's quantity variable with the number.
-			// This works with more than one number. 
-			} else if(isNumber){
-				if(firstNum) molecule[index][1]=current;
-				else molecule[index][1]+=current;
-				firstNum=false;
-			}
-	    }
-	    return molecule;
-	}
+	<div class="block"></div>
+	<div class="block"></div>
+	<div class="block"></div>
+	<div class="block"></div>
+	<div class="block"></div>
+	<div class="block"></div>
 	
-	// Finds the length that a parentheses block spans.
-	function findParenSpan(theString){
-		// console.log("findParenSpan("+theString+")");
-		// Automatic length of one. This is what we will return after string iteration.
-		var length = 1;
-		// order will be treated like a stack. We start with one because there has definately been one open parentheses.
-		// For opening parentheses we will add 1, for closing we will subtract one.
-		// Once we get an order of 0, length wil be returned.
-		// We can't just search for the next closing parentheses because there may be multiple layers.
-		var order = 1;
-		for(var i=0; i< theString.length; i++){
-			var current = theString.charAt(i);
-			length++; 
-			if(current == "(") order++;
-			else if(current ==")") order--;
-			if(order==0) return length;
-		}
-		// Wait, we have an opening paren but no closing? THE F!?
-		// console.log("Unmatched parentheses!");
-		return 0;
-	}
-
-	// Places the molecule into sweet html format. Basically just adds parentheses and subscript for quantity.
-	function htmlifyMolecule(molecule){
-		// We'll build the htmlified molecule through concatenation... is that how you spell it?
-        var htmlMolecule = ''
-        for(var i=0; i<molecule.length; i++){
-        	//If the symbol variable of this array is another array, we have a parentheses block.
-        	// Run htmlifyMolecule agin with just this array and place parentheses around it.
-        	if(typeof molecule[i][0] =="object") htmlMolecule+="("+htmlifyMolecule(molecule[i][0])+")";
-        	//Everything is good, display the symbol variable!
-            else htmlMolecule += molecule[i][0]
-            // If the quantity variable is 1, don't display anything. Otherwise add subscript.
-            if(molecule[i][1] > 1) htmlMolecule +='<sub>'+molecule[i][1]+'</sub>';
-        }
-        return htmlMolecule;
-    }
-</script>
-	
+	<script src ="chroma.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script>
+		(function(){
+			scale = chroma.scale(['#f58989', '#f4ee64', '#85f780'])
+			var count = 0;
+			$('.block').each(function(){
+				$(this).css('background-color', scale(count/6).hex());
+				count++;
+			})
+		})();
+	</script>
 </body>
 </html>
