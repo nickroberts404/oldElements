@@ -19,18 +19,9 @@
             <tr id="row1">
                 <td class="element" id="a1"></td>
                 <td colspan=1 class="space"></td>
-                <!-- <td class="chooseType alkali-metal" ></td>
-                <td class="chooseType alkaline-earth"></td>
-                <td class="chooseType transition-metal"></td>
-                <td class="chooseType post-transition-metal"></td>
-                <td class="chooseType metalloid"></td>
-                <td class="chooseType other-nonmetal"></td>
-                <td class="chooseType halogen"></td>
-                <td class="chooseType noble-gas"></td>
-                <td class="chooseType lanthanoid"></td>
-                <td class="chooseType actinoid"></td> -->
                 <td colspan=10 class="space"></td>
-                <td colspan=4 class="space"></td>
+                <td colspan=3 class="space"></td>
+                <td class="button" id="scale-button"><svg id="svg2" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 500" version="1.1" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"> <g id="layer1" transform="translate(0,-552.36218)"> <path id="path2987" d="M176.44,25.719c-36.69,0-66.44,29.75-66.44,66.437,0,36.684,29.75,66.404,66.44,66.404,10.41,0,20.23-2.39,29-6.65l38.53,33.75c-16.85,22.52-26.81,50.49-26.81,80.78,0,8.12,0.68,16.08,2.06,23.81l-54.97,27.94c-16.24-13.17-36.84-21.03-59.25-21.03-52.467,0-95,43.15-95,96.4,0,53.26,42.533,96.44,95,96.44,52.47,0,95-43.18,95-96.44,0-0.81-0.01-1.6-0.03-2.4l57-28.97c24.41,24.26,58.05,39.25,95.19,39.25,74.55,0,135-60.44,135-135s-60.45-135-135-135c-26.64,0-51.49,7.68-72.41,21l-41.41-36.28c2.9-7.46,4.5-15.53,4.5-24.004,0-36.687-29.72-66.437-66.4-66.437z" transform="translate(0,552.36218)" stroke-miterlimit="4" stroke-dasharray="none"/> </g> </svg></td>
                 <td class="button" id="calc-button"><i class="fa fa-calculator"></i></td>
                 <td class="element" id="a2"></td>
             </tr>
@@ -59,6 +50,16 @@
                         </div>
                         <input id="calculator-type" type="text" placeholder="Chemical Formula">
                         <div id="calculator-clear"></div>
+                    </div>
+                    <div id="scale-container" hidden>
+                        <div id="scale-title"></div>
+                        <div id="no-scale" class="scale scale-col-1 scale-row-1"></div>
+                        <div id="mass-scale" class="scale scale-col-1 scale-row-2"></div>
+                        <div id="density-scale" class="scale scale-col-1 scale-row-3"></div>
+                        <div id="electro-scale" class="scale scale-col-1 scale-row-4"></div>
+                        <div id="melt-scale" class="scale scale-col-2 scale-row-1"></div>
+                        <div id="boil-scale" class="scale scale-col-2 scale-row-2"></div>
+                        <div id="specific-scale" class="scale scale-col-2 scale-row-3"></div>
                     </div>
                 </td>
                 <td class="element" id="a5"></td>
@@ -202,6 +203,7 @@
             </tr>
         </table>
     </div>
+    <script src ="js/chroma.min.js"></script>
     <!-- jQuery 1.11.1 -->
     <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
     <!-- My Javascript -->

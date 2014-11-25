@@ -727,7 +727,7 @@
          "electronegativity":"1.9",
          "radius":"",
          "valence":"",
-         "specificheat":"",
+         "specificheat":"0.63",
          "comment":""
       },
       "a44": {  
@@ -1271,7 +1271,7 @@
          "electronegativity":"1.9",
          "radius":"",
          "valence":"",
-         "specificheat":"21.02",
+         "specificheat":"1.37",
          "comment":""
       },
       "a76": {  

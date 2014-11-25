@@ -8,6 +8,7 @@
     console.log(window.innerWidth);
     //Table begins in traditional mode.
     var calculatorMode = false;
+    var scaleMode = false;
     var traditionalMode = true;
 
     // Initializes element dimensions.
@@ -221,8 +222,9 @@
     }
 
     function toggleCalculator(){
-        calculatorMode = !calculatorMode;
         traditionalMode = false;
+        if(scaleMode) toggleScale();
+        calculatorMode = !calculatorMode;
         $('#calculator-container').slideToggle(200);
         if(calculatorMode){
             setTimeout(setCalculator, 200);
@@ -450,6 +452,102 @@
         // Wait, we have an opening paren but no closing? THE F!?
         // console.log("Unmatched parentheses!");
         return 0;
+    }
+
+
+
+  ////////////////////////////////////////////
+ /////// Functions for Scale Module./////////
+////////////////////////////////////////////
+
+
+    $('#scale-button').on('click', toggleScale);
+
+
+    function toggleScale(){
+        traditionalMode = false;
+        if(calculatorMode) toggleCalculator();
+        scaleMode = !scaleMode;
+        $('#scale-container').slideToggle(200);
+        if(scaleMode){
+            setTimeout(writeScales, 200);
+        } 
+        else{
+            traditionalMode = true;
+            setScale('noScale');
+            scaleReset();
+        }
+    }
+        $('.scale').on('click', function(){
+            var scaleID = $(this).attr('id');
+            if(scaleID == 'no-scale') setScale('noScale');
+            if(scaleID == 'mass-scale') setScale('mass');
+            if(scaleID == 'density-scale') setScale('density');
+            if(scaleID == 'electro-scale') setScale('electronegativity');
+            if(scaleID == 'melt-scale') setScale('melting');
+            if(scaleID == 'boil-scale') setScale('boiling');
+            if(scaleID == 'specific-scale') setScale('specificheat');
+        });
+
+    function writeScales(){
+        $('#no-scale').html('no scale');
+        $('#mass-scale').html('mass');
+        $('#density-scale').html('density');
+        $('#electro-scale').html('electronegativity');
+        $('#melt-scale').html('melting point');
+        $('#boil-scale').html('boiling point');
+        $('#specific-scale').html('specific heat');
+    }
+
+    function setScale(property){
+        console.log(property);
+        if(property == 'noScale') colorTable();
+        else{
+            var propertyStats = minMax(property);
+            var scale = chroma.scale(['#85f780','#f4ee64','#f58989']);
+            if (property == 'specificheat')scale.domain([propertyStats[0], propertyStats[1]], 118, 'log');
+            else scale.domain([propertyStats[0], propertyStats[1]]);
+            for(element in theElements){
+                var value = parseFloat(theElements[element][property]);
+                if(!isNaN(value)){
+                    $('#'+element).css('background-color', scale(value).hex());
+                } 
+                else{
+                    $('#'+element).css('background-color', 'white');
+                }
+            }
+        }
+        return true;
+    }
+
+    function scaleReset(){
+        $('#no-scale').html('');
+        $('#mass-scale').html('');
+        $('#density-scale').html('');
+        $('#electro-scale').html('');
+        $('#melt-scale').html('');
+        $('#boil-scale').html('');
+        $('#specific-scale').html('');
+        return true;
+    }
+
+
+    // Returns an array of the min, max, mid, and sum of specified property.
+    function minMax(property){
+        var min = 99999999999;
+        var max = -99999999999;
+        var sum = 0;
+        var count = 0;
+        for(element in theElements){
+            var value = parseFloat(theElements[element][property]);
+            if(!isNaN(value)){
+                if(value>max) max = value;
+                if(value<min) min = value;
+                sum+= value;
+                count++
+            }
+        }
+        return [min, max, sum/count, sum];
     }
 
 

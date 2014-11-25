@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Experiment</title>
+	<style>
+		.block{
+			height:50px;
+			width: 100%;
+			border-radius:15px;
+			margin:5px;
+			transition: 0.4s ease height;
+		}
+		.block:hover{
+			height:100px;
+		}
+	</style>
+</head>
+<body>
+	<div class="block"></div>
+	<div class="block"></div>
+	<div class="block"></div>
+	<div class="block"></div>
+	<div class="block"></div>
+	<div class="block"></div>
+	
+	<script src ="chroma.min.js"></script>
+	<script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
+	<script>
+		(function(){
+			scale = chroma.scale(['#f58989', '#f4ee64', '#85f780'])
+			var count = 0;
+			$('.block').each(function(){
+				$(this).css('background-color', scale(count/6).hex());
+				count++;
+			})
+		})();
+	</script>
+</body>
+</html>

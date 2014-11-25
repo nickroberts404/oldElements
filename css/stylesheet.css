@@ -21,9 +21,11 @@
 .element{
     background: lightblue;
     position: relative;
+    transition: 0.6s ease background;
 }
 
 .element-hover{
+    transition: 0s ;
     background: lightgreen !important;
 }
 
@@ -143,7 +145,7 @@
     text-align: center;
     background: white;
     font-size: 70px;
-    color: #262626;
+    color: lightblue;
 }
 
 #calculator-clear{
@@ -208,6 +210,61 @@
     top:50px;
     text-align: center;
     line-height:1;
+}
+
+#scale-container{
+    position: relative;
+    border-top:1px solid black;
+    font-family: monospace;
+    background: lightgreen;
+    overflow: hidden;
+}
+
+.scale{
+    font-size:25px;
+    font-weight: bold;
+    position: absolute;
+    cursor: pointer;
+    /*border: 1px solid black;*/
+}
+.scale:hover{
+    color: #f58989;
+}
+.scale:hover:before{
+    content: '.';
+}
+
+.scale-col-1{
+    left:30px;
+}
+
+.scale-col-2{
+    left: 400px;
+}
+
+.scale-row-1{
+    top:10px;
+}
+
+.scale-row-2{
+    top:40px;
+}
+
+.scale-row-3{
+    top:70px;
+}
+
+.scale-row-4{
+    top:100px;
+}
+
+
+#layer1{
+    fill: lightblue;
+}
+
+#scale-button:hover #layer1{
+    fill: lightgreen;
 }
 
 .other-nonmetal{
