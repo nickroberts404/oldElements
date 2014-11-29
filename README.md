@@ -1,3 +1,5 @@
+This table of elements has been deprecated. 
+
 elements
 =======
 
